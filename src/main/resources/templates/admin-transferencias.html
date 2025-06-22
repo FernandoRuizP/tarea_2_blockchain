@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Transferencias Registradas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 16px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Transferencias Registradas</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Emisor</th>
+      <th>Receptor</th>
+      <th>Monto</th>
+      <th>Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="t : ${transferencias}">
+      <td th:text="${t.id}"></td>
+      <td th:text="${t.fecha}"></td>
+      <td th:text="${t.hora}"></td>
+      <td th:text="${t.id1}"></td>
+      <td th:text="${t.id2}"></td>
+      <td th:text="${t.cantidad} + ' USDT'"></td>
+      <td th:text="${t.estado}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/home" class="back-button">← Volver al inicio</a>
+</div>
+
+</body>
+</html>
