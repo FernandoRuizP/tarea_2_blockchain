@@ -8,12 +8,36 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f7fafc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-      padding: 0 15px;
+      padding: 0;
+    }
+
+    .top-bar {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .saldo {
+      font-weight: bold;
+    }
+
+    .inicio-btn {
+      background-color: white;
+      color: #007bff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .inicio-btn:hover {
+      background-color: #e6e6e6;
     }
 
     .transferencia-container {
@@ -23,6 +47,7 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       max-width: 400px;
       width: 100%;
+      margin: 60px auto;
     }
 
     h2 {
@@ -74,23 +99,27 @@
       margin-top: 20px;
       text-align: center;
       font-weight: 600;
-      color: #28a745; /* verde */
+      color: #28a745;
     }
   </style>
 </head>
 <body>
 
+<!-- Barra superior con saldo -->
+<div class="top-bar">
+  <div class="saldo">Saldo actual: S/. <span th:text="${saldo != null ? saldo : '0.00'}">0.00</span></div>
+  <a th:href="@{/home}" class="inicio-btn">Inicio</a>
+</div>
+
+<!-- Formulario de transferencia -->
 <div class="transferencia-container">
   <h2>Realizar Transferencia</h2>
   <form action="/transferencia" method="post">
-    <label for="idOrigen">ID Origen:</label>
-    <input type="number" id="idOrigen" name="idOrigen" required min="1" />
-
     <label for="idDestino">ID Destino:</label>
-    <input type="number" id="idDestino" name="idDestino" required min="1" />
+    <input type="number" id="idDestino" name="idDestino" required min="1" th:value="${idDestino}" />
 
     <label for="monto">Monto:</label>
-    <input type="number" id="monto" name="monto" required step="0.01" min="0.01" />
+    <input type="number" id="monto" name="monto" required step="0.01" min="0.01" th:value="${monto}" />
 
     <button type="submit">Transferir</button>
   </form>

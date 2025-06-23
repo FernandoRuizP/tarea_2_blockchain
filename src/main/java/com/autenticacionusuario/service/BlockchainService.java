@@ -77,10 +77,12 @@ public class BlockchainService {
         emailService.enviarCorreo(emisor.getEmail(), asunto, cuerpo);
         emailService.enviarCorreo(receptor.getEmail(), asunto, cuerpo);
 
-        if (transaccionesPendientes.size() == 3) {
-            cerrarBloque(transaccionesPendientes);
-            transaccionesPendientes.clear();
+        while (transaccionesPendientes.size() >= 3) {
+            List<Transaccion> grupo = new ArrayList<>(transaccionesPendientes.subList(0, 3));
+            cerrarBloque(grupo);
+            transaccionesPendientes.removeAll(grupo);
         }
+
 
         return "Transferencia registrada exitosamente.";
     }
@@ -128,4 +130,11 @@ public class BlockchainService {
     public List<Ganancia> obtenerGanancias() {
         return gananciaRepository.findAll();
     }
+
+public double obtenerSaldo(Long userId) {
+    return userDetailRepository.findById(userId)
+            .map(user -> user.getSaldo().doubleValue())
+            .orElse(0.0);
+}
+
 }
